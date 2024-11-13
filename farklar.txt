@@ -1,0 +1,1310 @@
+diff --git a/.DS_Store b/.DS_Store
+deleted file mode 100644
+index deaf219..0000000
+Binary files a/.DS_Store and /dev/null differ
+diff --git a/.gitattributes b/.gitattributes
+deleted file mode 100644
+index 3b41682..0000000
+--- a/.gitattributes
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/mvnw text eol=lf
+-*.cmd text eol=crlf
+diff --git a/.gitignore b/.gitignore
+index 549e00a..524f096 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,33 +1,24 @@
+-HELP.md
+-target/
+-!.mvn/wrapper/maven-wrapper.jar
+-!**/src/main/**/target/
+-!**/src/test/**/target/
++# Compiled class file
++*.class
+ 
+-### STS ###
+-.apt_generated
+-.classpath
+-.factorypath
+-.project
+-.settings
+-.springBeans
+-.sts4-cache
++# Log file
++*.log
+ 
+-### IntelliJ IDEA ###
+-.idea
+-*.iws
+-*.iml
+-*.ipr
++# BlueJ files
++*.ctxt
+ 
+-### NetBeans ###
+-/nbproject/private/
+-/nbbuild/
+-/dist/
+-/nbdist/
+-/.nb-gradle/
+-build/
+-!**/src/main/**/build/
+-!**/src/test/**/build/
++# Mobile Tools for Java (J2ME)
++.mtj.tmp/
+ 
+-### VS Code ###
+-.vscode/
++# Package Files #
++*.jar
++*.war
++*.nar
++*.ear
++*.zip
++*.tar.gz
++*.rar
++
++# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
++hs_err_pid*
++replay_pid*
+diff --git a/.mvn/wrapper/maven-wrapper.properties b/.mvn/wrapper/maven-wrapper.properties
+deleted file mode 100644
+index d58dfb7..0000000
+--- a/.mvn/wrapper/maven-wrapper.properties
++++ /dev/null
+@@ -1,19 +0,0 @@
+-# Licensed to the Apache Software Foundation (ASF) under one
+-# or more contributor license agreements.  See the NOTICE file
+-# distributed with this work for additional information
+-# regarding copyright ownership.  The ASF licenses this file
+-# to you under the Apache License, Version 2.0 (the
+-# "License"); you may not use this file except in compliance
+-# with the License.  You may obtain a copy of the License at
+-#
+-#   http://www.apache.org/licenses/LICENSE-2.0
+-#
+-# Unless required by applicable law or agreed to in writing,
+-# software distributed under the License is distributed on an
+-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+-# KIND, either express or implied.  See the License for the
+-# specific language governing permissions and limitations
+-# under the License.
+-wrapperVersion=3.3.2
+-distributionType=only-script
+-distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.9/apache-maven-3.9.9-bin.zip
+diff --git a/mvnw b/mvnw
+deleted file mode 100755
+index 19529dd..0000000
+--- a/mvnw
++++ /dev/null
+@@ -1,259 +0,0 @@
+-#!/bin/sh
+-# ----------------------------------------------------------------------------
+-# Licensed to the Apache Software Foundation (ASF) under one
+-# or more contributor license agreements.  See the NOTICE file
+-# distributed with this work for additional information
+-# regarding copyright ownership.  The ASF licenses this file
+-# to you under the Apache License, Version 2.0 (the
+-# "License"); you may not use this file except in compliance
+-# with the License.  You may obtain a copy of the License at
+-#
+-#    http://www.apache.org/licenses/LICENSE-2.0
+-#
+-# Unless required by applicable law or agreed to in writing,
+-# software distributed under the License is distributed on an
+-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+-# KIND, either express or implied.  See the License for the
+-# specific language governing permissions and limitations
+-# under the License.
+-# ----------------------------------------------------------------------------
+-
+-# ----------------------------------------------------------------------------
+-# Apache Maven Wrapper startup batch script, version 3.3.2
+-#
+-# Optional ENV vars
+-# -----------------
+-#   JAVA_HOME - location of a JDK home dir, required when download maven via java source
+-#   MVNW_REPOURL - repo url base for downloading maven distribution
+-#   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+-#   MVNW_VERBOSE - true: enable verbose log; debug: trace the mvnw script; others: silence the output
+-# ----------------------------------------------------------------------------
+-
+-set -euf
+-[ "${MVNW_VERBOSE-}" != debug ] || set -x
+-
+-# OS specific support.
+-native_path() { printf %s\\n "$1"; }
+-case "$(uname)" in
+-CYGWIN* | MINGW*)
+-  [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
+-  native_path() { cygpath --path --windows "$1"; }
+-  ;;
+-esac
+-
+-# set JAVACMD and JAVACCMD
+-set_java_home() {
+-  # For Cygwin and MinGW, ensure paths are in Unix format before anything is touched
+-  if [ -n "${JAVA_HOME-}" ]; then
+-    if [ -x "$JAVA_HOME/jre/sh/java" ]; then
+-      # IBM's JDK on AIX uses strange locations for the executables
+-      JAVACMD="$JAVA_HOME/jre/sh/java"
+-      JAVACCMD="$JAVA_HOME/jre/sh/javac"
+-    else
+-      JAVACMD="$JAVA_HOME/bin/java"
+-      JAVACCMD="$JAVA_HOME/bin/javac"
+-
+-      if [ ! -x "$JAVACMD" ] || [ ! -x "$JAVACCMD" ]; then
+-        echo "The JAVA_HOME environment variable is not defined correctly, so mvnw cannot run." >&2
+-        echo "JAVA_HOME is set to \"$JAVA_HOME\", but \"\$JAVA_HOME/bin/java\" or \"\$JAVA_HOME/bin/javac\" does not exist." >&2
+-        return 1
+-      fi
+-    fi
+-  else
+-    JAVACMD="$(
+-      'set' +e
+-      'unset' -f command 2>/dev/null
+-      'command' -v java
+-    )" || :
+-    JAVACCMD="$(
+-      'set' +e
+-      'unset' -f command 2>/dev/null
+-      'command' -v javac
+-    )" || :
+-
+-    if [ ! -x "${JAVACMD-}" ] || [ ! -x "${JAVACCMD-}" ]; then
+-      echo "The java/javac command does not exist in PATH nor is JAVA_HOME set, so mvnw cannot run." >&2
+-      return 1
+-    fi
+-  fi
+-}
+-
+-# hash string like Java String::hashCode
+-hash_string() {
+-  str="${1:-}" h=0
+-  while [ -n "$str" ]; do
+-    char="${str%"${str#?}"}"
+-    h=$(((h * 31 + $(LC_CTYPE=C printf %d "'$char")) % 4294967296))
+-    str="${str#?}"
+-  done
+-  printf %x\\n $h
+-}
+-
+-verbose() { :; }
+-[ "${MVNW_VERBOSE-}" != true ] || verbose() { printf %s\\n "${1-}"; }
+-
+-die() {
+-  printf %s\\n "$1" >&2
+-  exit 1
+-}
+-
+-trim() {
+-  # MWRAPPER-139:
+-  #   Trims trailing and leading whitespace, carriage returns, tabs, and linefeeds.
+-  #   Needed for removing poorly interpreted newline sequences when running in more
+-  #   exotic environments such as mingw bash on Windows.
+-  printf "%s" "${1}" | tr -d '[:space:]'
+-}
+-
+-# parse distributionUrl and optional distributionSha256Sum, requires .mvn/wrapper/maven-wrapper.properties
+-while IFS="=" read -r key value; do
+-  case "${key-}" in
+-  distributionUrl) distributionUrl=$(trim "${value-}") ;;
+-  distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
+-  esac
+-done <"${0%/*}/.mvn/wrapper/maven-wrapper.properties"
+-[ -n "${distributionUrl-}" ] || die "cannot read distributionUrl property in ${0%/*}/.mvn/wrapper/maven-wrapper.properties"
+-
+-case "${distributionUrl##*/}" in
+-maven-mvnd-*bin.*)
+-  MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/
+-  case "${PROCESSOR_ARCHITECTURE-}${PROCESSOR_ARCHITEW6432-}:$(uname -a)" in
+-  *AMD64:CYGWIN* | *AMD64:MINGW*) distributionPlatform=windows-amd64 ;;
+-  :Darwin*x86_64) distributionPlatform=darwin-amd64 ;;
+-  :Darwin*arm64) distributionPlatform=darwin-aarch64 ;;
+-  :Linux*x86_64*) distributionPlatform=linux-amd64 ;;
+-  *)
+-    echo "Cannot detect native platform for mvnd on $(uname)-$(uname -m), use pure java version" >&2
+-    distributionPlatform=linux-amd64
+-    ;;
+-  esac
+-  distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"
+-  ;;
+-maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
+-*) MVN_CMD="mvn${0##*/mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
+-esac
+-
+-# apply MVNW_REPOURL and calculate MAVEN_HOME
+-# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>
+-[ -z "${MVNW_REPOURL-}" ] || distributionUrl="$MVNW_REPOURL$_MVNW_REPO_PATTERN${distributionUrl#*"$_MVNW_REPO_PATTERN"}"
+-distributionUrlName="${distributionUrl##*/}"
+-distributionUrlNameMain="${distributionUrlName%.*}"
+-distributionUrlNameMain="${distributionUrlNameMain%-bin}"
+-MAVEN_USER_HOME="${MAVEN_USER_HOME:-${HOME}/.m2}"
+-MAVEN_HOME="${MAVEN_USER_HOME}/wrapper/dists/${distributionUrlNameMain-}/$(hash_string "$distributionUrl")"
+-
+-exec_maven() {
+-  unset MVNW_VERBOSE MVNW_USERNAME MVNW_PASSWORD MVNW_REPOURL || :
+-  exec "$MAVEN_HOME/bin/$MVN_CMD" "$@" || die "cannot exec $MAVEN_HOME/bin/$MVN_CMD"
+-}
+-
+-if [ -d "$MAVEN_HOME" ]; then
+-  verbose "found existing MAVEN_HOME at $MAVEN_HOME"
+-  exec_maven "$@"
+-fi
+-
+-case "${distributionUrl-}" in
+-*?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
+-*) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
+-esac
+-
+-# prepare tmp dir
+-if TMP_DOWNLOAD_DIR="$(mktemp -d)" && [ -d "$TMP_DOWNLOAD_DIR" ]; then
+-  clean() { rm -rf -- "$TMP_DOWNLOAD_DIR"; }
+-  trap clean HUP INT TERM EXIT
+-else
+-  die "cannot create temp dir"
+-fi
+-
+-mkdir -p -- "${MAVEN_HOME%/*}"
+-
+-# Download and Install Apache Maven
+-verbose "Couldn't find MAVEN_HOME, downloading and installing it ..."
+-verbose "Downloading from: $distributionUrl"
+-verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"
+-
+-# select .zip or .tar.gz
+-if ! command -v unzip >/dev/null; then
+-  distributionUrl="${distributionUrl%.zip}.tar.gz"
+-  distributionUrlName="${distributionUrl##*/}"
+-fi
+-
+-# verbose opt
+-__MVNW_QUIET_WGET=--quiet __MVNW_QUIET_CURL=--silent __MVNW_QUIET_UNZIP=-q __MVNW_QUIET_TAR=''
+-[ "${MVNW_VERBOSE-}" != true ] || __MVNW_QUIET_WGET='' __MVNW_QUIET_CURL='' __MVNW_QUIET_UNZIP='' __MVNW_QUIET_TAR=v
+-
+-# normalize http auth
+-case "${MVNW_PASSWORD:+has-password}" in
+-'') MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+-has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+-esac
+-
+-if [ -z "${MVNW_USERNAME-}" ] && command -v wget >/dev/null; then
+-  verbose "Found wget ... using wget"
+-  wget ${__MVNW_QUIET_WGET:+"$__MVNW_QUIET_WGET"} "$distributionUrl" -O "$TMP_DOWNLOAD_DIR/$distributionUrlName" || die "wget: Failed to fetch $distributionUrl"
+-elif [ -z "${MVNW_USERNAME-}" ] && command -v curl >/dev/null; then
+-  verbose "Found curl ... using curl"
+-  curl ${__MVNW_QUIET_CURL:+"$__MVNW_QUIET_CURL"} -f -L -o "$TMP_DOWNLOAD_DIR/$distributionUrlName" "$distributionUrl" || die "curl: Failed to fetch $distributionUrl"
+-elif set_java_home; then
+-  verbose "Falling back to use Java to download"
+-  javaSource="$TMP_DOWNLOAD_DIR/Downloader.java"
+-  targetZip="$TMP_DOWNLOAD_DIR/$distributionUrlName"
+-  cat >"$javaSource" <<-END
+-	public class Downloader extends java.net.Authenticator
+-	{
+-	  protected java.net.PasswordAuthentication getPasswordAuthentication()
+-	  {
+-	    return new java.net.PasswordAuthentication( System.getenv( "MVNW_USERNAME" ), System.getenv( "MVNW_PASSWORD" ).toCharArray() );
+-	  }
+-	  public static void main( String[] args ) throws Exception
+-	  {
+-	    setDefault( new Downloader() );
+-	    java.nio.file.Files.copy( java.net.URI.create( args[0] ).toURL().openStream(), java.nio.file.Paths.get( args[1] ).toAbsolutePath().normalize() );
+-	  }
+-	}
+-	END
+-  # For Cygwin/MinGW, switch paths to Windows format before running javac and java
+-  verbose " - Compiling Downloader.java ..."
+-  "$(native_path "$JAVACCMD")" "$(native_path "$javaSource")" || die "Failed to compile Downloader.java"
+-  verbose " - Running Downloader.java ..."
+-  "$(native_path "$JAVACMD")" -cp "$(native_path "$TMP_DOWNLOAD_DIR")" Downloader "$distributionUrl" "$(native_path "$targetZip")"
+-fi
+-
+-# If specified, validate the SHA-256 sum of the Maven distribution zip file
+-if [ -n "${distributionSha256Sum-}" ]; then
+-  distributionSha256Result=false
+-  if [ "$MVN_CMD" = mvnd.sh ]; then
+-    echo "Checksum validation is not supported for maven-mvnd." >&2
+-    echo "Please disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2
+-    exit 1
+-  elif command -v sha256sum >/dev/null; then
+-    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | sha256sum -c >/dev/null 2>&1; then
+-      distributionSha256Result=true
+-    fi
+-  elif command -v shasum >/dev/null; then
+-    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | shasum -a 256 -c >/dev/null 2>&1; then
+-      distributionSha256Result=true
+-    fi
+-  else
+-    echo "Checksum validation was requested but neither 'sha256sum' or 'shasum' are available." >&2
+-    echo "Please install either command, or disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2
+-    exit 1
+-  fi
+-  if [ $distributionSha256Result = false ]; then
+-    echo "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised." >&2
+-    echo "If you updated your Maven version, you need to update the specified distributionSha256Sum property." >&2
+-    exit 1
+-  fi
+-fi
+-
+-# unzip and move
+-if command -v unzip >/dev/null; then
+-  unzip ${__MVNW_QUIET_UNZIP:+"$__MVNW_QUIET_UNZIP"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -d "$TMP_DOWNLOAD_DIR" || die "failed to unzip"
+-else
+-  tar xzf${__MVNW_QUIET_TAR:+"$__MVNW_QUIET_TAR"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -C "$TMP_DOWNLOAD_DIR" || die "failed to untar"
+-fi
+-printf %s\\n "$distributionUrl" >"$TMP_DOWNLOAD_DIR/$distributionUrlNameMain/mvnw.url"
+-mv -- "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain" "$MAVEN_HOME" || [ -d "$MAVEN_HOME" ] || die "fail to move MAVEN_HOME"
+-
+-clean || :
+-exec_maven "$@"
+diff --git a/mvnw.cmd b/mvnw.cmd
+deleted file mode 100644
+index 249bdf3..0000000
+--- a/mvnw.cmd
++++ /dev/null
+@@ -1,149 +0,0 @@
+-<# : batch portion
+-@REM ----------------------------------------------------------------------------
+-@REM Licensed to the Apache Software Foundation (ASF) under one
+-@REM or more contributor license agreements.  See the NOTICE file
+-@REM distributed with this work for additional information
+-@REM regarding copyright ownership.  The ASF licenses this file
+-@REM to you under the Apache License, Version 2.0 (the
+-@REM "License"); you may not use this file except in compliance
+-@REM with the License.  You may obtain a copy of the License at
+-@REM
+-@REM    http://www.apache.org/licenses/LICENSE-2.0
+-@REM
+-@REM Unless required by applicable law or agreed to in writing,
+-@REM software distributed under the License is distributed on an
+-@REM "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+-@REM KIND, either express or implied.  See the License for the
+-@REM specific language governing permissions and limitations
+-@REM under the License.
+-@REM ----------------------------------------------------------------------------
+-
+-@REM ----------------------------------------------------------------------------
+-@REM Apache Maven Wrapper startup batch script, version 3.3.2
+-@REM
+-@REM Optional ENV vars
+-@REM   MVNW_REPOURL - repo url base for downloading maven distribution
+-@REM   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+-@REM   MVNW_VERBOSE - true: enable verbose log; others: silence the output
+-@REM ----------------------------------------------------------------------------
+-
+-@IF "%__MVNW_ARG0_NAME__%"=="" (SET __MVNW_ARG0_NAME__=%~nx0)
+-@SET __MVNW_CMD__=
+-@SET __MVNW_ERROR__=
+-@SET __MVNW_PSMODULEP_SAVE=%PSModulePath%
+-@SET PSModulePath=
+-@FOR /F "usebackq tokens=1* delims==" %%A IN (`powershell -noprofile "& {$scriptDir='%~dp0'; $script='%__MVNW_ARG0_NAME__%'; icm -ScriptBlock ([Scriptblock]::Create((Get-Content -Raw '%~f0'))) -NoNewScope}"`) DO @(
+-  IF "%%A"=="MVN_CMD" (set __MVNW_CMD__=%%B) ELSE IF "%%B"=="" (echo %%A) ELSE (echo %%A=%%B)
+-)
+-@SET PSModulePath=%__MVNW_PSMODULEP_SAVE%
+-@SET __MVNW_PSMODULEP_SAVE=
+-@SET __MVNW_ARG0_NAME__=
+-@SET MVNW_USERNAME=
+-@SET MVNW_PASSWORD=
+-@IF NOT "%__MVNW_CMD__%"=="" (%__MVNW_CMD__% %*)
+-@echo Cannot start maven from wrapper >&2 && exit /b 1
+-@GOTO :EOF
+-: end batch / begin powershell #>
+-
+-$ErrorActionPreference = "Stop"
+-if ($env:MVNW_VERBOSE -eq "true") {
+-  $VerbosePreference = "Continue"
+-}
+-
+-# calculate distributionUrl, requires .mvn/wrapper/maven-wrapper.properties
+-$distributionUrl = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionUrl
+-if (!$distributionUrl) {
+-  Write-Error "cannot read distributionUrl property in $scriptDir/.mvn/wrapper/maven-wrapper.properties"
+-}
+-
+-switch -wildcard -casesensitive ( $($distributionUrl -replace '^.*/','') ) {
+-  "maven-mvnd-*" {
+-    $USE_MVND = $true
+-    $distributionUrl = $distributionUrl -replace '-bin\.[^.]*$',"-windows-amd64.zip"
+-    $MVN_CMD = "mvnd.cmd"
+-    break
+-  }
+-  default {
+-    $USE_MVND = $false
+-    $MVN_CMD = $script -replace '^mvnw','mvn'
+-    break
+-  }
+-}
+-
+-# apply MVNW_REPOURL and calculate MAVEN_HOME
+-# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>
+-if ($env:MVNW_REPOURL) {
+-  $MVNW_REPO_PATTERN = if ($USE_MVND) { "/org/apache/maven/" } else { "/maven/mvnd/" }
+-  $distributionUrl = "$env:MVNW_REPOURL$MVNW_REPO_PATTERN$($distributionUrl -replace '^.*'+$MVNW_REPO_PATTERN,'')"
+-}
+-$distributionUrlName = $distributionUrl -replace '^.*/',''
+-$distributionUrlNameMain = $distributionUrlName -replace '\.[^.]*$','' -replace '-bin$',''
+-$MAVEN_HOME_PARENT = "$HOME/.m2/wrapper/dists/$distributionUrlNameMain"
+-if ($env:MAVEN_USER_HOME) {
+-  $MAVEN_HOME_PARENT = "$env:MAVEN_USER_HOME/wrapper/dists/$distributionUrlNameMain"
+-}
+-$MAVEN_HOME_NAME = ([System.Security.Cryptography.MD5]::Create().ComputeHash([byte[]][char[]]$distributionUrl) | ForEach-Object {$_.ToString("x2")}) -join ''
+-$MAVEN_HOME = "$MAVEN_HOME_PARENT/$MAVEN_HOME_NAME"
+-
+-if (Test-Path -Path "$MAVEN_HOME" -PathType Container) {
+-  Write-Verbose "found existing MAVEN_HOME at $MAVEN_HOME"
+-  Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
+-  exit $?
+-}
+-
+-if (! $distributionUrlNameMain -or ($distributionUrlName -eq $distributionUrlNameMain)) {
+-  Write-Error "distributionUrl is not valid, must end with *-bin.zip, but found $distributionUrl"
+-}
+-
+-# prepare tmp dir
+-$TMP_DOWNLOAD_DIR_HOLDER = New-TemporaryFile
+-$TMP_DOWNLOAD_DIR = New-Item -Itemtype Directory -Path "$TMP_DOWNLOAD_DIR_HOLDER.dir"
+-$TMP_DOWNLOAD_DIR_HOLDER.Delete() | Out-Null
+-trap {
+-  if ($TMP_DOWNLOAD_DIR.Exists) {
+-    try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }
+-    catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }
+-  }
+-}
+-
+-New-Item -Itemtype Directory -Path "$MAVEN_HOME_PARENT" -Force | Out-Null
+-
+-# Download and Install Apache Maven
+-Write-Verbose "Couldn't find MAVEN_HOME, downloading and installing it ..."
+-Write-Verbose "Downloading from: $distributionUrl"
+-Write-Verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"
+-
+-$webclient = New-Object System.Net.WebClient
+-if ($env:MVNW_USERNAME -and $env:MVNW_PASSWORD) {
+-  $webclient.Credentials = New-Object System.Net.NetworkCredential($env:MVNW_USERNAME, $env:MVNW_PASSWORD)
+-}
+-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+-$webclient.DownloadFile($distributionUrl, "$TMP_DOWNLOAD_DIR/$distributionUrlName") | Out-Null
+-
+-# If specified, validate the SHA-256 sum of the Maven distribution zip file
+-$distributionSha256Sum = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionSha256Sum
+-if ($distributionSha256Sum) {
+-  if ($USE_MVND) {
+-    Write-Error "Checksum validation is not supported for maven-mvnd. `nPlease disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties."
+-  }
+-  Import-Module $PSHOME\Modules\Microsoft.PowerShell.Utility -Function Get-FileHash
+-  if ((Get-FileHash "$TMP_DOWNLOAD_DIR/$distributionUrlName" -Algorithm SHA256).Hash.ToLower() -ne $distributionSha256Sum) {
+-    Write-Error "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised. If you updated your Maven version, you need to update the specified distributionSha256Sum property."
+-  }
+-}
+-
+-# unzip and move
+-Expand-Archive "$TMP_DOWNLOAD_DIR/$distributionUrlName" -DestinationPath "$TMP_DOWNLOAD_DIR" | Out-Null
+-Rename-Item -Path "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain" -NewName $MAVEN_HOME_NAME | Out-Null
+-try {
+-  Move-Item -Path "$TMP_DOWNLOAD_DIR/$MAVEN_HOME_NAME" -Destination $MAVEN_HOME_PARENT | Out-Null
+-} catch {
+-  if (! (Test-Path -Path "$MAVEN_HOME" -PathType Container)) {
+-    Write-Error "fail to move MAVEN_HOME"
+-  }
+-} finally {
+-  try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }
+-  catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }
+-}
+-
+-Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
+diff --git a/pom.xml b/pom.xml
+deleted file mode 100644
+index 80109ef..0000000
+--- a/pom.xml
++++ /dev/null
+@@ -1,72 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+-	<modelVersion>4.0.0</modelVersion>
+-	<parent>
+-		<groupId>org.springframework.boot</groupId>
+-		<artifactId>spring-boot-starter-parent</artifactId>
+-		<version>3.3.5</version>
+-		<relativePath/> <!-- lookup parent from repository -->
+-	</parent>
+-	<groupId>com.example</groupId>
+-	<artifactId>CMS</artifactId>
+-	<version>0.0.1-SNAPSHOT</version>
+-	<name>CMS</name>
+-	<description>Demo project for Spring Boot</description>
+-
+-	<properties>
+-		<java.version>17</java.version> <!-- Java 23 yerine Java 17 kullanmanız tavsiye edilir -->
+-	</properties>
+-
+-	<dependencies>
+-		<!-- Spring Boot Dependencies -->
+-		<dependency>
+-			<groupId>org.springframework.boot</groupId>
+-			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+-		</dependency>
+-		<dependency>
+-			<groupId>org.springframework.boot</groupId>
+-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+-		</dependency>
+-		<dependency>
+-			<groupId>org.springframework.boot</groupId>
+-			<artifactId>spring-boot-starter-validation</artifactId>
+-		</dependency>
+-		<dependency>
+-			<groupId>org.springframework.boot</groupId>
+-			<artifactId>spring-boot-starter-web</artifactId>
+-		</dependency>
+-
+-		<!-- H2 Database Dependency -->
+-		<dependency>
+-			<groupId>com.h2database</groupId>
+-			<artifactId>h2</artifactId>
+-			<scope>runtime</scope>
+-		</dependency>
+-
+-		<!-- Lombok Dependency -->
+-		<dependency>
+-			<groupId>org.projectlombok</groupId>
+-			<artifactId>lombok</artifactId>
+-			<version>1.18.26</version>
+-			<scope>provided</scope>
+-		</dependency>
+-
+-		<!-- Test Dependency -->
+-		<dependency>
+-			<groupId>org.springframework.boot</groupId>
+-			<artifactId>spring-boot-starter-test</artifactId>
+-			<scope>test</scope>
+-		</dependency>
+-	</dependencies>
+-
+-	<build>
+-		<plugins>
+-			<plugin>
+-				<groupId>org.springframework.boot</groupId>
+-				<artifactId>spring-boot-maven-plugin</artifactId>
+-			</plugin>
+-		</plugins>
+-	</build>
+-
+-</project>
+diff --git a/src/.DS_Store b/src/.DS_Store
+deleted file mode 100644
+index 4ba01ec..0000000
+Binary files a/src/.DS_Store and /dev/null differ
+diff --git a/src/main/.DS_Store b/src/main/.DS_Store
+deleted file mode 100644
+index 88c2b06..0000000
+Binary files a/src/main/.DS_Store and /dev/null differ
+diff --git a/src/main/java/.DS_Store b/src/main/java/.DS_Store
+deleted file mode 100644
+index 910af00..0000000
+Binary files a/src/main/java/.DS_Store and /dev/null differ
+diff --git a/src/main/java/com/.DS_Store b/src/main/java/com/.DS_Store
+deleted file mode 100644
+index 2af5d26..0000000
+Binary files a/src/main/java/com/.DS_Store and /dev/null differ
+diff --git a/src/main/java/com/Adapters/.DS_Store b/src/main/java/com/Adapters/.DS_Store
+deleted file mode 100644
+index 71f0383..0000000
+Binary files a/src/main/java/com/Adapters/.DS_Store and /dev/null differ
+diff --git a/src/main/java/com/Adapters/Controllers/CustomerController.java b/src/main/java/com/Adapters/Controllers/CustomerController.java
+deleted file mode 100644
+index 41d2c8b..0000000
+--- a/src/main/java/com/Adapters/Controllers/CustomerController.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package Controllers;
+-
+-public class CustomerController {
+-
+-}
+diff --git a/src/main/java/com/Adapters/Controllers/MovieController.java b/src/main/java/com/Adapters/Controllers/MovieController.java
+deleted file mode 100644
+index e72324b..0000000
+--- a/src/main/java/com/Adapters/Controllers/MovieController.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package Controllers;
+-
+-public class MovieController {
+-}
+diff --git a/src/main/java/com/Adapters/Controllers/ReservationController.java b/src/main/java/com/Adapters/Controllers/ReservationController.java
+deleted file mode 100644
+index a29c989..0000000
+--- a/src/main/java/com/Adapters/Controllers/ReservationController.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package Controllers;
+-
+-public class ReservationController {
+-}
+diff --git a/src/main/java/com/Adapters/Controllers/SessionController.java b/src/main/java/com/Adapters/Controllers/SessionController.java
+deleted file mode 100644
+index e7486f7..0000000
+--- a/src/main/java/com/Adapters/Controllers/SessionController.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package Controllers;
+-
+-public class SessionController {
+-}
+diff --git a/src/main/java/com/Adapters/Controllers/SubscriptedCustomerController.java b/src/main/java/com/Adapters/Controllers/SubscriptedCustomerController.java
+deleted file mode 100644
+index 63122a5..0000000
+--- a/src/main/java/com/Adapters/Controllers/SubscriptedCustomerController.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package Controllers;
+-
+-public class SubscriptedCustomerController {
+-}
+diff --git a/src/main/java/com/Adapters/dto/CustomerDto.java b/src/main/java/com/Adapters/dto/CustomerDto.java
+deleted file mode 100644
+index 396614c..0000000
+--- a/src/main/java/com/Adapters/dto/CustomerDto.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.dto;
+-
+-public class CustomerDto {
+-}
+diff --git a/src/main/java/com/Adapters/dto/HallDto.java b/src/main/java/com/Adapters/dto/HallDto.java
+deleted file mode 100644
+index 55c3f5b..0000000
+--- a/src/main/java/com/Adapters/dto/HallDto.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.dto;
+-
+-public class HallDto {
+-}
+diff --git a/src/main/java/com/Adapters/dto/MovieDto.java b/src/main/java/com/Adapters/dto/MovieDto.java
+deleted file mode 100644
+index 1217cba..0000000
+--- a/src/main/java/com/Adapters/dto/MovieDto.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.dto;
+-
+-public class MovieDto {
+-}
+diff --git a/src/main/java/com/Adapters/dto/ReservationDto.java b/src/main/java/com/Adapters/dto/ReservationDto.java
+deleted file mode 100644
+index ab48b2e..0000000
+--- a/src/main/java/com/Adapters/dto/ReservationDto.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.dto;
+-
+-public class ReservationDto {
+-}
+diff --git a/src/main/java/com/Adapters/dto/SeatDto.java b/src/main/java/com/Adapters/dto/SeatDto.java
+deleted file mode 100644
+index 22a7666..0000000
+--- a/src/main/java/com/Adapters/dto/SeatDto.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.dto;
+-
+-public class SeatDto {
+-}
+diff --git a/src/main/java/com/Adapters/dto/SessionDto.java b/src/main/java/com/Adapters/dto/SessionDto.java
+deleted file mode 100644
+index a1bf59b..0000000
+--- a/src/main/java/com/Adapters/dto/SessionDto.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.dto;
+-
+-public class SessionDto {
+-}
+diff --git a/src/main/java/com/Adapters/dto/SubscriptedCustomerDto.java b/src/main/java/com/Adapters/dto/SubscriptedCustomerDto.java
+deleted file mode 100644
+index 8510abd..0000000
+--- a/src/main/java/com/Adapters/dto/SubscriptedCustomerDto.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.dto;
+-
+-public class SubscriptedCustomerDto {
+-}
+diff --git a/src/main/java/com/Adapters/mapper/CustomerMapper.java b/src/main/java/com/Adapters/mapper/CustomerMapper.java
+deleted file mode 100644
+index 9589f4d..0000000
+--- a/src/main/java/com/Adapters/mapper/CustomerMapper.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.mapper;
+-
+-public class CustomerMapper {
+-}
+diff --git a/src/main/java/com/Adapters/mapper/HallMapper.java b/src/main/java/com/Adapters/mapper/HallMapper.java
+deleted file mode 100644
+index a992766..0000000
+--- a/src/main/java/com/Adapters/mapper/HallMapper.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.mapper;
+-
+-public class HallMapper {
+-}
+diff --git a/src/main/java/com/Adapters/mapper/MovieMapper.java b/src/main/java/com/Adapters/mapper/MovieMapper.java
+deleted file mode 100644
+index 5ebce94..0000000
+--- a/src/main/java/com/Adapters/mapper/MovieMapper.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.mapper;
+-
+-public class MovieMapper {
+-}
+diff --git a/src/main/java/com/Adapters/mapper/ReservationMapper.java b/src/main/java/com/Adapters/mapper/ReservationMapper.java
+deleted file mode 100644
+index 14c75df..0000000
+--- a/src/main/java/com/Adapters/mapper/ReservationMapper.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.mapper;
+-
+-public class ReservationMapper {
+-}
+diff --git a/src/main/java/com/Adapters/mapper/SeatMapper.java b/src/main/java/com/Adapters/mapper/SeatMapper.java
+deleted file mode 100644
+index 32182f5..0000000
+--- a/src/main/java/com/Adapters/mapper/SeatMapper.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.mapper;
+-
+-public class SeatMapper {
+-}
+diff --git a/src/main/java/com/Adapters/mapper/SessionMapper.java b/src/main/java/com/Adapters/mapper/SessionMapper.java
+deleted file mode 100644
+index c5358d6..0000000
+--- a/src/main/java/com/Adapters/mapper/SessionMapper.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.mapper;
+-
+-public class SessionMapper {
+-}
+diff --git a/src/main/java/com/Adapters/mapper/SubscriptedCustomerMapper.java b/src/main/java/com/Adapters/mapper/SubscriptedCustomerMapper.java
+deleted file mode 100644
+index edd05aa..0000000
+--- a/src/main/java/com/Adapters/mapper/SubscriptedCustomerMapper.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Adapters.mapper;
+-
+-public class SubscriptedCustomerMapper {
+-}
+diff --git a/src/main/java/com/Application/.DS_Store b/src/main/java/com/Application/.DS_Store
+deleted file mode 100644
+index 7568817..0000000
+Binary files a/src/main/java/com/Application/.DS_Store and /dev/null differ
+diff --git a/src/main/java/com/Application/Services/.DS_Store b/src/main/java/com/Application/Services/.DS_Store
+deleted file mode 100644
+index 1114743..0000000
+Binary files a/src/main/java/com/Application/Services/.DS_Store and /dev/null differ
+diff --git a/src/main/java/com/Application/Services/ICMSSeriveces.java b/src/main/java/com/Application/Services/ICMSSeriveces.java
+deleted file mode 100644
+index 4bf2f33..0000000
+--- a/src/main/java/com/Application/Services/ICMSSeriveces.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Application.Services;
+-
+-public interface ICMSSeriveces {
+-}
+diff --git a/src/main/java/com/Application/Services/Impl/CMSServicesImpl.java b/src/main/java/com/Application/Services/Impl/CMSServicesImpl.java
+deleted file mode 100644
+index d49e908..0000000
+--- a/src/main/java/com/Application/Services/Impl/CMSServicesImpl.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Application.Services.Impl;
+-
+-public class CMSServicesImpl {
+-}
+diff --git a/src/main/java/com/Application/Services/Models/CMS.java b/src/main/java/com/Application/Services/Models/CMS.java
+deleted file mode 100644
+index b4b3485..0000000
+--- a/src/main/java/com/Application/Services/Models/CMS.java
++++ /dev/null
+@@ -1,9 +0,0 @@
+-package Models;
+-
+-import java.util.List;
+-
+-public class CMS {
+-    private int register;
+-    private List<Hall> hallsList;
+-    private List<SubscriptedCustomer> subscriptedCustomersList;
+-}
+diff --git a/src/main/java/com/Application/Services/Models/Customer.java b/src/main/java/com/Application/Services/Models/Customer.java
+deleted file mode 100644
+index 783cd64..0000000
+--- a/src/main/java/com/Application/Services/Models/Customer.java
++++ /dev/null
+@@ -1,20 +0,0 @@
+-package com.Application.Services.Models;
+-
+-import lombok.AllArgsConstructor;
+-import lombok.Getter;
+-import lombok.NoArgsConstructor;
+-import lombok.Setter;
+-
+-@Setter
+-@Getter
+-@NoArgsConstructor
+-@AllArgsConstructor
+-
+-public class Customer {
+-    private String name;
+-    private Long id;
+-    private int age;
+-
+-
+-
+-}
+diff --git a/src/main/java/com/Application/Services/Models/Hall.java b/src/main/java/com/Application/Services/Models/Hall.java
+deleted file mode 100644
+index 0d68fdd..0000000
+--- a/src/main/java/com/Application/Services/Models/Hall.java
++++ /dev/null
+@@ -1,8 +0,0 @@
+-package Models;
+-
+-public class Hall {
+-    private String id;
+-    private String number;
+-    private Seat[][] seats;
+-    private int capacity;
+-}
+diff --git a/src/main/java/com/Application/Services/Models/ICMS.java b/src/main/java/com/Application/Services/Models/ICMS.java
+deleted file mode 100644
+index cf850d9..0000000
+--- a/src/main/java/com/Application/Services/Models/ICMS.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package Models;
+-
+-public interface ICMS {
+-
+-}
+diff --git a/src/main/java/com/Application/Services/Models/ICustomer.java b/src/main/java/com/Application/Services/Models/ICustomer.java
+deleted file mode 100644
+index 51f1685..0000000
+--- a/src/main/java/com/Application/Services/Models/ICustomer.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package Models;
+-
+-public interface ICustomer {
+-
+-}
+diff --git a/src/main/java/com/Application/Services/Models/IHall.java b/src/main/java/com/Application/Services/Models/IHall.java
+deleted file mode 100644
+index 99a9e07..0000000
+--- a/src/main/java/com/Application/Services/Models/IHall.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package Models;
+-
+-public interface IHall {
+-
+-}
+diff --git a/src/main/java/com/Application/Services/Models/IMovie.java b/src/main/java/com/Application/Services/Models/IMovie.java
+deleted file mode 100644
+index 071a5a8..0000000
+--- a/src/main/java/com/Application/Services/Models/IMovie.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package Models;
+-
+-public interface IMovie {
+-}
+diff --git a/src/main/java/com/Application/Services/Models/IReservation.java b/src/main/java/com/Application/Services/Models/IReservation.java
+deleted file mode 100644
+index 0a499cc..0000000
+--- a/src/main/java/com/Application/Services/Models/IReservation.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package Models;
+-
+-public interface IReservation {
+-}
+diff --git a/src/main/java/com/Application/Services/Models/ISeatRepository.java b/src/main/java/com/Application/Services/Models/ISeatRepository.java
+deleted file mode 100644
+index 14d514c..0000000
+--- a/src/main/java/com/Application/Services/Models/ISeatRepository.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package Models;
+-
+-public interface ISeatRepository {
+-
+-}
+diff --git a/src/main/java/com/Application/Services/Models/ISession.java b/src/main/java/com/Application/Services/Models/ISession.java
+deleted file mode 100644
+index 1419f17..0000000
+--- a/src/main/java/com/Application/Services/Models/ISession.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package Models;
+-
+-public interface ISession {
+-
+-}
+diff --git a/src/main/java/com/Application/Services/Models/ISubscriptedCustomer.java b/src/main/java/com/Application/Services/Models/ISubscriptedCustomer.java
+deleted file mode 100644
+index 54c0a58..0000000
+--- a/src/main/java/com/Application/Services/Models/ISubscriptedCustomer.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package Models;
+-
+-public interface ISubscriptedCustomer {
+-}
+diff --git a/src/main/java/com/Application/Services/Models/Movie.java b/src/main/java/com/Application/Services/Models/Movie.java
+deleted file mode 100644
+index e9727ae..0000000
+--- a/src/main/java/com/Application/Services/Models/Movie.java
++++ /dev/null
+@@ -1,14 +0,0 @@
+-package Models;
+-
+-public class Movie {
+-
+-    private String id;
+-    private String movieName;
+-    private int duration;
+-    private String genre;
+-    private int price;
+-
+-    private int ageRestricton;
+-
+-
+-}
+diff --git a/src/main/java/com/Application/Services/Models/Reservation.java b/src/main/java/com/Application/Services/Models/Reservation.java
+deleted file mode 100644
+index 4a7501b..0000000
+--- a/src/main/java/com/Application/Services/Models/Reservation.java
++++ /dev/null
+@@ -1,10 +0,0 @@
+-package Models;
+-
+-import java.util.Date;
+-
+-public class Reservation {
+-    private Customer customer;
+-    private Date date;
+-    private String id;
+-    private Seat seat;
+-}
+diff --git a/src/main/java/com/Application/Services/Models/Seat.java b/src/main/java/com/Application/Services/Models/Seat.java
+deleted file mode 100644
+index ff3c2bf..0000000
+--- a/src/main/java/com/Application/Services/Models/Seat.java
++++ /dev/null
+@@ -1,7 +0,0 @@
+-package Models;
+-
+-public class Seat {
+-    private boolean isEmpty;
+-    private Customer customer;
+-    private String id;
+-}
+diff --git a/src/main/java/com/Application/Services/Models/Session.java b/src/main/java/com/Application/Services/Models/Session.java
+deleted file mode 100644
+index a1b0f36..0000000
+--- a/src/main/java/com/Application/Services/Models/Session.java
++++ /dev/null
+@@ -1,12 +0,0 @@
+-package Models;
+-
+-import java.util.Date;
+-import java.util.HashMap;
+-import java.util.List;
+-
+-public class Session {
+-    private String id;
+-    private Date date;
+-    private Models.Movie movieName;
+-    private Models.Hall hall;
+-}
+diff --git a/src/main/java/com/Application/Services/Models/SubscriptedCustomer.java b/src/main/java/com/Application/Services/Models/SubscriptedCustomer.java
+deleted file mode 100644
+index 0b67b1f..0000000
+--- a/src/main/java/com/Application/Services/Models/SubscriptedCustomer.java
++++ /dev/null
+@@ -1,6 +0,0 @@
+-package Models;
+-
+-public class SubscriptedCustomer extends Customer {
+-    private String mail;
+-    private String password;
+-}
+diff --git a/src/main/java/com/Domain/Entities/CustomerEntity.java b/src/main/java/com/Domain/Entities/CustomerEntity.java
+deleted file mode 100644
+index 3bda4fc..0000000
+--- a/src/main/java/com/Domain/Entities/CustomerEntity.java
++++ /dev/null
+@@ -1,31 +0,0 @@
+-package com.Domain.Entities;
+-
+-import jakarta.persistence.*;
+-import lombok.AllArgsConstructor;
+-import lombok.Getter;
+-import lombok.NoArgsConstructor;
+-import lombok.Setter;
+-@Setter
+-@Getter
+-@AllArgsConstructor
+-@NoArgsConstructor
+-
+-
+-@Entity
+-@Table(name ="customers")
+-public class CustomerEntity {
+-    @Id
+-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+-    private Long id;
+-    @Column(name = "name", nullable = false, unique = true)
+-    private String name;
+-    @Column(name ="age", nullable = false)
+-    private int age;
+-    CustomerEntity(String name, int age){
+-        this.name=name;
+-        this.age=age;
+-    }
+-
+-
+-
+-}
+diff --git a/src/main/java/com/Domain/Entities/HallEntity.java b/src/main/java/com/Domain/Entities/HallEntity.java
+deleted file mode 100644
+index bcec293..0000000
+--- a/src/main/java/com/Domain/Entities/HallEntity.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package com.Domain.Entities;
+-
+-public class HallEntity {
+-
+-}
+diff --git a/src/main/java/com/Domain/Entities/MovieEntity.java b/src/main/java/com/Domain/Entities/MovieEntity.java
+deleted file mode 100644
+index 0c6e1c1..0000000
+--- a/src/main/java/com/Domain/Entities/MovieEntity.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Domain.Entities;
+-
+-public class MovieEntity {
+-}
+diff --git a/src/main/java/com/Domain/Entities/ReservationEntity.java b/src/main/java/com/Domain/Entities/ReservationEntity.java
+deleted file mode 100644
+index ad98e73..0000000
+--- a/src/main/java/com/Domain/Entities/ReservationEntity.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Domain.Entities;
+-
+-public class ReservationEntity {
+-}
+diff --git a/src/main/java/com/Domain/Entities/SeatEntity.java b/src/main/java/com/Domain/Entities/SeatEntity.java
+deleted file mode 100644
+index 7001bf5..0000000
+--- a/src/main/java/com/Domain/Entities/SeatEntity.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Domain.Entities;
+-
+-public class SeatEntity {
+-}
+diff --git a/src/main/java/com/Domain/Entities/SessionEntity.java b/src/main/java/com/Domain/Entities/SessionEntity.java
+deleted file mode 100644
+index 956cd61..0000000
+--- a/src/main/java/com/Domain/Entities/SessionEntity.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Domain.Entities;
+-
+-public class SessionEntity {
+-}
+diff --git a/src/main/java/com/Domain/Entities/SubscriptedCustomerEntity.java b/src/main/java/com/Domain/Entities/SubscriptedCustomerEntity.java
+deleted file mode 100644
+index a91ca96..0000000
+--- a/src/main/java/com/Domain/Entities/SubscriptedCustomerEntity.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package com.Domain.Entities;
+-
+-public class SubscriptedCustomerEntity extends CustomerEntity{
+-
+-}
+diff --git a/src/main/java/com/Domain/Repository/ICustomerRepository.java b/src/main/java/com/Domain/Repository/ICustomerRepository.java
+deleted file mode 100644
+index ed708af..0000000
+--- a/src/main/java/com/Domain/Repository/ICustomerRepository.java
++++ /dev/null
+@@ -1,7 +0,0 @@
+-package com.Domain.Repository;
+-
+-import com.Application.Services.Models.Customer;
+-import org.springframework.data.jpa.repository.JpaRepository;
+-
+-public interface ICustomerRepository extends JpaRepository<Customer, Long> {
+-}
+diff --git a/src/main/java/com/Domain/Repository/IHallRepository.java b/src/main/java/com/Domain/Repository/IHallRepository.java
+deleted file mode 100644
+index 8822cd0..0000000
+--- a/src/main/java/com/Domain/Repository/IHallRepository.java
++++ /dev/null
+@@ -1,6 +0,0 @@
+-package com.Domain.Repository;
+-
+-import org.springframework.data.jpa.repository.JpaRepository;
+-
+-public interface IHallRepository extends JpaRepository<Models.Hall,Long> {
+-}
+diff --git a/src/main/java/com/Domain/Repository/IMovieRepository.java b/src/main/java/com/Domain/Repository/IMovieRepository.java
+deleted file mode 100644
+index 864d442..0000000
+--- a/src/main/java/com/Domain/Repository/IMovieRepository.java
++++ /dev/null
+@@ -1,6 +0,0 @@
+-package com.Domain.Repository;
+-
+-import org.springframework.data.jpa.repository.JpaRepository;
+-
+-public interface IMovieRepository extends JpaRepository<Models.Movie,Long> {
+-}
+diff --git a/src/main/java/com/Domain/Repository/IReservationRepository.java b/src/main/java/com/Domain/Repository/IReservationRepository.java
+deleted file mode 100644
+index 12df150..0000000
+--- a/src/main/java/com/Domain/Repository/IReservationRepository.java
++++ /dev/null
+@@ -1,6 +0,0 @@
+-package com.Domain.Repository;
+-
+-import org.springframework.data.jpa.repository.JpaRepository;
+-
+-public interface IReservationRepository extends JpaRepository<Models.Reservation,Long> {
+-}
+diff --git a/src/main/java/com/Domain/Repository/ISeatRepository.java b/src/main/java/com/Domain/Repository/ISeatRepository.java
+deleted file mode 100644
+index d36ed70..0000000
+--- a/src/main/java/com/Domain/Repository/ISeatRepository.java
++++ /dev/null
+@@ -1,7 +0,0 @@
+-package com.Domain.Repository;
+-
+-import org.springframework.data.jpa.repository.JpaRepository;
+-
+-public interface ISeatRepository extends JpaRepository<Models.Seat, Long> {
+-
+-}
+diff --git a/src/main/java/com/Domain/Repository/ISessionRepository.java b/src/main/java/com/Domain/Repository/ISessionRepository.java
+deleted file mode 100644
+index 1944ce6..0000000
+--- a/src/main/java/com/Domain/Repository/ISessionRepository.java
++++ /dev/null
+@@ -1,6 +0,0 @@
+-package com.Domain.Repository;
+-
+-import org.springframework.data.jpa.repository.JpaRepository;
+-
+-public interface ISessionRepository extends JpaRepository<Models.Session,Long> {
+-}
+diff --git a/src/main/java/com/Domain/Repository/SubscriptedCustomerEntity.java b/src/main/java/com/Domain/Repository/SubscriptedCustomerEntity.java
+deleted file mode 100644
+index 0dd3771..0000000
+--- a/src/main/java/com/Domain/Repository/SubscriptedCustomerEntity.java
++++ /dev/null
+@@ -1,6 +0,0 @@
+-package com.Domain.Repository;
+-
+-import org.springframework.data.jpa.repository.JpaRepository;
+-
+-public interface SubscriptedCustomerEntity extends JpaRepository<Models.SubscriptedCustomer, Long> {
+-}
+diff --git a/src/main/java/com/Infrastructure/.DS_Store b/src/main/java/com/Infrastructure/.DS_Store
+deleted file mode 100644
+index bec5c66..0000000
+Binary files a/src/main/java/com/Infrastructure/.DS_Store and /dev/null differ
+diff --git a/src/main/java/com/Infrastructure/Database/DatabaseAdapter.java b/src/main/java/com/Infrastructure/Database/DatabaseAdapter.java
+deleted file mode 100644
+index 7213e32..0000000
+--- a/src/main/java/com/Infrastructure/Database/DatabaseAdapter.java
++++ /dev/null
+@@ -1,5 +0,0 @@
+-package com.Infrastructure.Database;
+-
+-public class DatabaseAdapter {
+-
+-}
+diff --git a/src/main/java/com/Infrastructure/Database/IDatabaseAdapter.java b/src/main/java/com/Infrastructure/Database/IDatabaseAdapter.java
+deleted file mode 100644
+index 492bf0a..0000000
+--- a/src/main/java/com/Infrastructure/Database/IDatabaseAdapter.java
++++ /dev/null
+@@ -1,4 +0,0 @@
+-package com.Infrastructure.Database;
+-
+-public interface IDatabaseAdapter {
+-}
+diff --git a/src/main/java/com/example/.DS_Store b/src/main/java/com/example/.DS_Store
+deleted file mode 100644
+index 0df52f7..0000000
+Binary files a/src/main/java/com/example/.DS_Store and /dev/null differ
+diff --git a/src/main/java/com/example/CMS/CmsApplication.java b/src/main/java/com/example/CMS/CmsApplication.java
+deleted file mode 100644
+index ac50d88..0000000
+--- a/src/main/java/com/example/CMS/CmsApplication.java
++++ /dev/null
+@@ -1,13 +0,0 @@
+-package com.example.CMS;
+-
+-import org.springframework.boot.SpringApplication;
+-import org.springframework.boot.autoconfigure.SpringBootApplication;
+-
+-@SpringBootApplication
+-public class CmsApplication {
+-
+-	public static void main(String[] args) {
+-		SpringApplication.run(CmsApplication.class, args);
+-	}
+-
+-}
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+deleted file mode 100644
+index 38d1062..0000000
+--- a/src/main/resources/application.properties
++++ /dev/null
+@@ -1 +0,0 @@
+-spring.application.name=CMS
+diff --git a/src/test/java/com/example/CMS/CmsApplicationTests.java b/src/test/java/com/example/CMS/CmsApplicationTests.java
+deleted file mode 100644
+index 6a43a75..0000000
+--- a/src/test/java/com/example/CMS/CmsApplicationTests.java
++++ /dev/null
+@@ -1,13 +0,0 @@
+-package com.example.CMS;
+-
+-import org.junit.jupiter.api.Test;
+-import org.springframework.boot.test.context.SpringBootTest;
+-
+-@SpringBootTest
+-class CmsApplicationTests {
+-
+-	@Test
+-	void contextLoads() {
+-	}
+-
+-}
